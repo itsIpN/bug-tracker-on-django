@@ -1,0 +1,45 @@
+{% extends "boilerplate.html" %}
+
+{% block title %}
+Log In
+{% endblock %}
+
+
+{% block body %}
+
+<div class="row content d-flex justify-content-center">
+    <div class="col-md-5">
+        <div class="box p-4">
+            <div class="col-md-12 fw-bold fs-1 text-center">Login</div>
+            <form method="post" class="mb-3" action="{% url 'login' %}">
+                {% csrf_token %} 
+                {% for field in form %}
+                <div class="form-floating mb-3">
+                    <input type="{{ field.widget_type }}" class="form-control rounded-0" name="{{ field.html_name }}" id="{{ field.id_for_label }}" placeholder="placeholder" required/>
+                    <label for="{{ field.html_name }}">
+                        {% if field.html_name == 'username' %}
+                        Username
+                        {% elif field.html_name == 'password' %}
+                        Password
+                        {% endif %}
+                    </label>
+                </div>
+                {% endfor %}
+            <div class="d-grid gap-2 mb-3">
+                <input type="submit" class="btn btn-outline-dark" data-mdb-ripple-color="dark" value="Log In" />
+                <input type="hidden" name="next" value="{{ next }}" />
+            </div>
+            </form>
+            <div class="col-md-12 fs-5 text-center">
+                <p>Don't Have an Account?</p>
+            </div>
+            <div class="d-grid gap-2 mb-3">
+                <a class="btn btn-outline-dark" data-mdb-ripple-color="dark" href="{% url 'register' %}">Register</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

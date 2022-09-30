@@ -1,0 +1,29 @@
+{% extends "boilerplate.html" %}
+
+{% block title %}
+Confirm Delete
+{% endblock %}
+
+
+{% block body %}
+<div class="row content d-flex justify-content-center">
+    <div class="col-md-5">
+        <div class="box p-4">
+            <div class="col-md-12 fw-bold fs-1 text-center">    
+            Please confirm the deletion of {{ object.title }}
+            </div>
+            <form class="mb-3" action="" method="POST"> 
+                {% csrf_token %}  
+                <div class="d-grid gap-2 mb-3">
+                        <input class="btn btn-outline-danger" data-mdb-ripple-color="dark" type="submit" value="Delete">
+                </div>
+                <div class="d-grid gap-2 mb-3">
+                        <a class="btn btn-outline-dark" href="{% url 'project_details' project.id %}" data-mdb-ripple-color="dark">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
