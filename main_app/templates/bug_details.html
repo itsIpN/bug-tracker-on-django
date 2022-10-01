@@ -41,38 +41,27 @@ Bug Details
             <dt class="col-sm-6">Assigned to: </dt>
             <dt class="col-sm-6">Unassigned Users</dt>
             <dd class="col-sm-6">
-                <table class="table align-middle mb-0 bg-white" id="assignedUserTable" >
-                    <thead class="bg-light">
-                      <tr>
-                        <th class="th-sm">Username</th>
-                        <th class="th-sm">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+              <ul class="list-group p-4">
                     {% if bugs.assigned_to.count %}
                     {% for user in bugs.assigned_to.all %}
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <div class="ms-3">
-                              <p class="fw-bold mb-1">{{ user.username }}</p>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                            <form action="{% url 'unassign_user' bugs.id user.id %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-link btn-sm btn-rounded">
-                                    Unassign User
-                                </button>
-                            </form>
-                        </td>                       
-                      </tr>
+                    <li> 
+                      <div class="row">
+                      <div class="col-sm-6">{{ user.username }}</div>
+                      <div class="col-sm-6">
+                      <form action="{% url 'unassign_user' bugs.id user.id %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-link btn-sm btn-rounded">
+                          Unassign User
+                      </button>
+                      </form>
+                      </div>
+                    </li>  
                     {% endfor %}
+                    {% else %}
+                    <li>Unassigned</li>
                     {% endif %}
-                    </tbody>
-                </table>
-            </dd>    
+              </ul>       
+            </dd>      
             <dd class="col-sm-6">
                 <table class="table align-middle mb-0 bg-white" id="unassignedUserTable" >
                     <thead class="bg-light">
@@ -104,12 +93,6 @@ Bug Details
                     </tbody>
                 </table>
             </dd>
-            <p> {% if bugs.fixed %}
-                Bug has been fixed!
-                {% else  %}
-                Bug is not fixed yet 
-                {% endif %} 
-            </p>
         </dl>
     </div>
 </div>
@@ -118,14 +101,6 @@ Bug Details
 <script>
     $(document).ready( function () {
     $('#unassignedUserTable').DataTable({
-        "pageLength": 5,
-        "lengthChange": false,
-        fixedHeader: true,
-        responsive: true,
-    });
-    } );
-    $(document).ready( function () {
-    $('#assignedUserTable').DataTable({
         "pageLength": 5,
         "lengthChange": false,
         fixedHeader: true,
