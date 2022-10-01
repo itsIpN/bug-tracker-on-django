@@ -44,13 +44,13 @@ Bug Details
               <ul class="list-group p-4">
                     {% if bugs.assigned_to.count %}
                     {% for user in bugs.assigned_to.all %}
-                    <li> 
+                    <li class="p-1"> 
                       <div class="row">
                       <div class="col-sm-6">{{ user.username }}</div>
                       <div class="col-sm-6">
                       <form action="{% url 'unassign_user' bugs.id user.id %}" method="post">
                       {% csrf_token %}
-                      <button type="submit" class="btn btn-link btn-sm btn-rounded">
+                      <button type="submit" class="btn btn-outline-dark" data-mdb-ripple-color="dark">
                           Unassign User
                       </button>
                       </form>
@@ -83,7 +83,7 @@ Bug Details
                         <td>
                             <form action="{% url 'assign_user' bugs.id user.id %}" method="post">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-link btn-sm btn-rounded">
+                                <button type="submit" class="btn btn-outline-dark" data-mdb-ripple-color="dark">
                                     Assign User
                                 </button>
                             </form>
